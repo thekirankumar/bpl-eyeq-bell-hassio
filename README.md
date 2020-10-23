@@ -10,7 +10,9 @@ Before compiling: change of the mqtt clientid and home assisant MQTT broker IP a
 # Compilation
 Compilation can be achieved on a debian using a cross compile toolchain for mips, with the following command line:
 
-mips-linux-gnu-gcc -mips32 -muclibc -EL -mabi=32 -static mqttbell.c -o mqttbell
+`mips-linux-gnu-gcc -mips32 -muclibc -EL -mabi=32 -static mqttbell.c -o mqttbell`
+
+When I ran this on a debian, it generated a corrupt binary (600KB), so I ran this command on a windows machine which gave the right binary (50KB)
 
 # Installation
 Installation on the doorbell is done with the following procedure:
