@@ -1,5 +1,5 @@
 # mqttbell
-local MQTT publishing client to run on BPL Eyeq WiFi doorbells
+Local MQTT publishing client to run on BPL Eyeq WiFi doorbells. Full credit to @nwaelti for this.
 
 Put the Hassio MQTT (addon) IP Address into the source and then run automations based on the event from doorbell press. 
 
