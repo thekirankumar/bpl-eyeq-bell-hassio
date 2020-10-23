@@ -24,6 +24,7 @@ Installation on the doorbell is done with the following procedure:
 5. In that file, add two lines: `iptables -t nat -A OUTPUT -p udp -d 112.74.102.136 -j REDIRECT --to-ports 8629` and `/system/system/bin/mqttbell &`
 6. Upload the modified file and make it executable (`chmod +x mqttbell`)
 7. Start the commands manually to test
+8. Uninstall the shitty BPL eyeq app from your phone. This addon will always be online on the doorbell unlike their app which crashes once in a while. 
 
 Now pushing the ring button on your doorbell should trigger a mqtt message.
 
