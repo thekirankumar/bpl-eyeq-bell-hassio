@@ -1,9 +1,11 @@
 # mqttbell
 Local MQTT publishing client to run on BPL Eyeq WiFi doorbells. Full credit to @nwaelti for this.
 
-Put the Hassio MQTT (addon) IP Address into the source and then run automations based on the event from doorbell press. 
+Put the Home assistant (Hassio) MQTT (addon) IP Address into the source and then run automations based on the event from doorbell press. 
 
-Before compiling: change of the mqtt clientid and broker IP address.
+An example automation with this : If MQTT event with topic = `cmd/doorbell/dingdong` (provided by this addon) then capture a photo from door bell camera (mjpeg integration has to be done separately), then send a telegram message (telegram integration separate) 
+
+Before compiling: change of the mqtt clientid and home assisant MQTT broker IP address.
 
 # Compilation
 Compilation can be achieved on a debian using a cross compile toolchain for mips, with the following command line:
