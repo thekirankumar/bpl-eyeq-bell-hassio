@@ -3,7 +3,7 @@ Ever wondered how awesome it would be to not have your wifi doorbell's app runni
 Wouldn't it be cool if you can get a telegram message on your phone along with the photo of the person at your door?
 Or how about having an option to toggle the door lock from within telegram, without opening those shitty chinese apps which hardly work?
 
-All this is possible by using this addon, along with a bunch of other addons. Keep reading ahead.
+All this is possible by using this addon, along with a bunch of other addons. You compile the code present here, deploy it to the doorbell (it runs busybox, so essentially its linux) and voila, your code runs on the doorbell. Keep reading ahead for more details.
 
 # What is this ?
 This script enables a local MQTT publishing client to run on BPL Eyeq WiFi doorbells. Full credit to @nwaelti for figuring this out.
