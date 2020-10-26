@@ -13,6 +13,7 @@ Compilation can be achieved on a debian using a cross compile toolchain for mips
 `mips-linux-gnu-gcc -mips32 -muclibc -EL -mabi=32 -static mqttbell.c -o mqttbell`
 
 When I ran this on a debian, it generated a corrupt binary (600KB), so I ran this command on a windows machine which gave the right binary (50KB)
+For windows, I installed "Sourcery CodeBench Lite for MIPS GNU/Linux" and ran the same command as above.
 
 # Installation
 Installation on the doorbell is done with the following procedure:
