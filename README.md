@@ -51,6 +51,8 @@ Have fun...
 - mqttbell binary running in the background intercepts all packets coming from the above step (localhost:8629) and makes a MQTT connection and publishes these packets on the MQTT topic `cmd/doobell/dingdong`
 - home assistant or any other system subscribed to the above MQTT topic can receive this and use it for automations (like sending a telegram notification or playing a sound).
 
+![](bpl-eyeq-hass.png)
+
 # Warning
 The doorbell keeps sending a hearbeat packet (every minute) to the same server. This packet will also be forwarded to your MQTT. You will have to ignore this message by having a condition on the length. The actual packet sent when the doorbell is pressed will have a larger length than the heartbeat packet.
 
