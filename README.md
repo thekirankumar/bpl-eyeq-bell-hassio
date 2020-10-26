@@ -7,6 +7,12 @@ An example automation with this : If MQTT event with topic = `cmd/doorbell/dingd
 
 Before compiling: change of the mqtt clientid and home assisant MQTT broker IP address.
 
+# Pre-requisites
+- Make sure your doorbell is manufactured by BPL and you use https://play.google.com/store/apps/details?id=com.bpliq.smartbell to monitor it.
+- Make sure you know the IP address of your doorbell and are able to reach this IP via `telnet <ip_of_the_bell>`
+- Make sure your home assistant is setup and has a static IP address.
+- Make sure both the doorbell and home assistant are able to see each other (as long as they are connected to the same router, this should be fine)
+
 # Compilation
 Compilation can be achieved on a debian using a cross compile toolchain for mips, with the following command line:
 
