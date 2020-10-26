@@ -54,5 +54,18 @@ Have fun...
 # Warning
 The doorbell keeps sending a hearbeat packet (every minute) to the same server. This packet will also be forwarded to your MQTT. You will have to ignore this message by having a condition on the length. The actual packet sent when the doorbell is pressed will have a larger length than the heartbeat packet.
 
+# Open the Yale door lock remotely (optional)
+You can add the following into home assistant's `configuration.yaml`
+Username and password is the one you configured on the BPL eyeq app. 
+IP address is the doorbell's IP address.
+
+```
+rest_command:
+  open_door_rest:
+    url: http://<IP_of_doorbell>:81/openlock.cgi?user=<username>&pwd=<password>
+    method: GET
+```
+Once configured, this will expose a home assistant service to open the door lock. This can be used in your automations.
+
 # Future
 The next set of steps would be to figure out a way to use an addon like facebox to recognize the face and use google home TTS engine to to announce who's at your door.
