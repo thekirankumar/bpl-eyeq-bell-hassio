@@ -12,6 +12,7 @@ Before compiling: change of the mqtt clientid and home assisant MQTT broker IP a
 - Make sure you know the IP address of your doorbell and are able to reach this IP via `telnet <ip_of_the_bell>`
 - Make sure your home assistant is setup and has a static IP address.
 - Make sure both the doorbell and home assistant are able to see each other (as long as they are connected to the same router, this should be fine)
+- Make sure you have MQTT server setup on some machine. Simplest setup usually is to install MQTT broker on your home assistant via https://github.com/home-assistant/hassio-addons/blob/master/mosquitto/DOCS.md
 
 # Compilation
 Compilation can be achieved on a debian using a cross compile toolchain for mips, with the following command line:
