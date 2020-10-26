@@ -34,6 +34,9 @@ Have fun...
 # How does it work
 - `ipcam.sh` is the script which launches during bootup of the bell. Hence the two commands `iptables` and `mqttbell` are added to it.
 - when a doorbell is pressed, it sends a udp packet to `112.74.102.136` (figured out via wireshark)
-- running the `iptables` command redirects a copy of all the udp packets with destination = `112.74.102.136` to the local port `8629`
+- running the `iptables` command redirects a copy of all the udp packets with destination = `112.74.102.136` (chinese server) to the local port `8629`
 - mqttbell binary running in the background intercepts all packets coming from the above step (localhost:8629) and makes a MQTT connection and publishes these packets on the MQTT topic `cmd/doobell/dingdong`
 - home assistant or any other system subscribed to the above MQTT topic can receive this and use it for automations (like sending a telegram notification or playing a sound).
+
+# Warning
+The doorbell keeps sending a hearbeat packet (every minute) to the same server. This packet will also be forwarded to your MQTT. You will have to ignore this message by having a condition on the length. The actual packet sent when the doorbell is pressed will have a larger length than the heartbeat packet.
