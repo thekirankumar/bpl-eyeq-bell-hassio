@@ -1,13 +1,13 @@
 # Introduction
-Ever wondered how awesome it would be to not have your wifi doorbell's app running on your phone in the background consuming your battery and still get notified ?
-Wouldn't it be cool if you can get a telegram message on your phone along with the photo of the person at your door ? 
-Or how about having an option to toggle the door lock from within telegram, without opening those shitty chinese app which hardly work ?
+Ever wondered how awesome it would be to not have your wifi doorbell's app running on your phone in the background consuming your battery and still get notified.
+Wouldn't it be cool if you can get a telegram message on your phone along with the photo of the person at your door?
+Or how about having an option to toggle the door lock from within telegram, without opening those shitty chinese apps which hardly work?
 
 All this is possible by using this addon, along with a bunch of other addons. Keep reading ahead.
 
 # What is this ?
 This script enables a local MQTT publishing client to run on BPL Eyeq WiFi doorbells. Full credit to @nwaelti for figuring this out.
-All you have to do is to put the Home assistant (Hassio) MQTT (addon) IP Address into the source, compile it and push it run on the doorbell, and then run automations based on the event from doorbell press. 
+All you have to do is to put the Home assistant (Hassio) MQTT (addon) IP Address into the source, compile it and push it run on the doorbell, and then run automation based on the event from doorbell press. 
 
 An example automation with this : If MQTT event with topic = `cmd/doorbell/dingdong` (provided by this addon) then capture a photo from door bell camera (mjpeg integration has to be done separately), then send a telegram message (telegram integration separate) 
 
