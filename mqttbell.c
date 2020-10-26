@@ -1,3 +1,4 @@
+My Drive
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -8,6 +9,7 @@
 #include <sys/types.h> 
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <stdbool.h>
 
 #define MQTT_DUP_FLAG     1<<3
 #define MQTT_QOS0_FLAG    0<<1
@@ -641,6 +643,8 @@ int read_packet(int timeout)
 int main(int argc, char* argv[])
 {
 	
+	printf("Main program started\n");
+
   int sockfd; /* socket */
   int portno; /* port to listen on */
   int clientlen; /* byte size of client's address */
@@ -661,7 +665,7 @@ int main(int argc, char* argv[])
 
   sockfd = socket(AF_INET, SOCK_DGRAM, 0);
   if (sockfd < 0) 
-    error("ERROR opening socket");
+    printf("ERROR opening socket\n");
 
   optval = 1;
   setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (const void *)&optval , sizeof(int));
@@ -672,7 +676,7 @@ int main(int argc, char* argv[])
   serveraddr.sin_port = htons((unsigned short)portno);
 
   if (bind(sockfd, (struct sockaddr *) &serveraddr, sizeof(serveraddr)) < 0) 
-    error("ERROR on binding");
+    printf("ERROR on binding\n");
 
   clientlen = sizeof(clientaddr);
 
@@ -680,40 +684,66 @@ int main(int argc, char* argv[])
 
   while (1) {
 
+	bool success = true;
+
+	printf("Inside listening loop\n");
     bzero(buf, BUFSIZE);
     n = recvfrom(sockfd, buf, BUFSIZE, 0, (struct sockaddr *) &clientaddr, &clientlen);
     if (n < 0)
-      error("ERROR in recvfrom");
+      printf("ERROR in recvfrom\n");
 
-  	mqtt_init(&broker, "mymqttclientid");
-	init_socket(&broker, "ip_from_borker", 1883);
-	mqtt_connect(&broker);
+	printf("Connection to MQTT starting\n");
 
-	packet_length = read_packet(1);
-	if(packet_length < 0)
-	{
-		fprintf(stderr, "Error(%d) on read packet!\n", packet_length);
-		return -1;
+  	mqtt_init(&broker, "gbell");
+  	mqtt_init_auth(&broker, <mqtt_username_here>, <mqtt_password_here>);
+	if(init_socket(&broker, <mqtt_broker_ip_address>, 1883) < 0) {
+		success = false;
+	}
+	if(success) {
+		mqtt_connect(&broker);
+		printf("Connection to MQTT done\n");
+	} else {
+		printf("Connect to MQTT Failed\n");
 	}
 
-	if(MQTTParseMessageType(packet_buffer) != MQTT_MSG_CONNACK)
-	{
-		fprintf(stderr, "CONNACK expected!\n");
-		return -2;
+	if(success) {
+		packet_length = read_packet(1);
+		if(packet_length < 0)
+		{
+			printf("Error in reading packet from MQTT");
+			success = false;
+			//fprintf(stderr, "Error(%d) on read packet!\n", packet_length);
+			//return -1;
+		}
+
+		if(MQTTParseMessageType(packet_buffer) != MQTT_MSG_CONNACK)
+		{
+			printf("Error in reading packet from MQTT");
+			success = false;
+			//fprintf(stderr, "CONNACK expected!\n");
+			//return -2;
+		}
+
+		if(packet_buffer[3] != 0x00)
+		{
+			printf("Error in reading packet from MQTT");
+			success = false;
+			//fprintf(stderr, "CONNACK failed!\n");
+			//return -2;
+		}
 	}
 
-	if(packet_buffer[3] != 0x00)
-	{
-		fprintf(stderr, "CONNACK failed!\n");
-		return -2;
+	if(success) {
+		printf("Writing buffer (len = %d) to MQTT\n", n);
+		mqtt_publish(&broker, "cmd/doorbell/dingdong", buf, 0);
+		mqtt_disconnect(&broker);
 	}
+	if(success) {
+		close_socket(&broker);
+	}
+	printf("Closed MQTT\n");
 
-	mqtt_publish(&broker, "cmd/doorbell/dingdong", buf, 0);
-
-	mqtt_disconnect(&broker);
-	close_socket(&broker);
 
   }	
 
 }
-
