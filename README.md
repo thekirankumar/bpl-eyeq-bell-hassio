@@ -1,6 +1,6 @@
 # Introduction
 Ever wondered how awesome it would be to not have your wifi doorbell's app running on your phone in the background consuming your battery and still get notified ?
-Wouldn't it be cool if you can get a telegram message along with the photo of the person at your door ? 
+Wouldn't it be cool if you can get a telegram message on your phone along with the photo of the person at your door ? 
 Or how about having an option to toggle the door lock from within telegram, without opening those shitty chinese app which hardly work ?
 
 All this is possible by using this addon, along with a bunch of other addons. Keep reading ahead.
@@ -53,3 +53,6 @@ Have fun...
 
 # Warning
 The doorbell keeps sending a hearbeat packet (every minute) to the same server. This packet will also be forwarded to your MQTT. You will have to ignore this message by having a condition on the length. The actual packet sent when the doorbell is pressed will have a larger length than the heartbeat packet.
+
+# Future
+The next set of steps would be to figure out a way to use an addon like facebox to recognize the face and use google home TTS engine to to announce who's at your door.
